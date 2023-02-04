@@ -10,14 +10,15 @@ public class PlayerAttackScript : MonoBehaviour
 {
 	[SerializeField] GameObject bullet;
 
-	int currentAmmo, maxAmmo, waitInSeconds;
-	float bulletSpeed;
+	int currentAmmo, maxAmmo;
+	float bulletSpeed, waitInSeconds;
+	bool reload = false;
 
 	private void Start()
 	{
 		currentAmmo = 5;
 		maxAmmo = 5;
-		waitInSeconds = 3;
+		waitInSeconds = 1.5f;
 		bulletSpeed = 0.5f;
 
 		UpdateAmmoGUI();
@@ -25,40 +26,34 @@ public class PlayerAttackScript : MonoBehaviour
 
 	public void Shoot()
     {
-		Vector3 pos = transform.position;
-		Vector3 dir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - pos).normalized;
-		dir.z = 0;
-		dir.Normalize();
-		GameObject b = Instantiate(bullet, pos, Quaternion.identity);
-		b.GetComponent<BulletBehaviour>().SetDirection(dir);
-
-		currentAmmo--;
-		UpdateAmmoGUI();
-
-		if(currentAmmo <= 0)
+		if (currentAmmo > 0 && reload != true)
 		{
-			Reload();
+			Vector3 pos = transform.position;
+			Vector3 dir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - pos).normalized;
+			dir.z = 0;
+			dir.Normalize();
+			GameObject b = Instantiate(bullet, pos, Quaternion.identity);
+			b.GetComponent<BulletBehaviour>().SetDirection(dir);
+			currentAmmo--;
+			UpdateAmmoGUI();
+		}
+		else if(currentAmmo <= 0 && reload == false)
+		{
+			reload = true;
+			StartCoroutine(Reload());
 		}
 	}
 
-	void Reload()
+	IEnumerator Reload()
 	{
 		//Feedback
-		//wait time
+		yield return new WaitForSeconds(waitInSeconds);
 		currentAmmo = maxAmmo;
 		UpdateAmmoGUI();
+		reload = false;
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		string tag = collision.gameObject.tag;
-		if (tag == "Enemy")
-		{
-			Debug.Log("E");
-		}
-	}
-
-		void UpdateAmmoGUI()
+	void UpdateAmmoGUI()
 	{
 		UIManager.instance.SetAmmoGUI(currentAmmo, maxAmmo);
 	}
