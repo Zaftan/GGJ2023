@@ -23,12 +23,6 @@ public class PlayerAttackScript : MonoBehaviour
 		UpdateAmmoGUI();
 	}
 
-	public void Update()
-	{
-		transform.rotation = LookAt2D.LookAtMouse(transform);
-
-	}
-
 	public void Shoot()
     {
 		Vector3 pos = transform.position;
@@ -55,7 +49,16 @@ public class PlayerAttackScript : MonoBehaviour
 		UpdateAmmoGUI();
 	}
 
-	void UpdateAmmoGUI()
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		string tag = collision.gameObject.tag;
+		if (tag == "Enemy")
+		{
+			Debug.Log("E");
+		}
+	}
+
+		void UpdateAmmoGUI()
 	{
 		UIManager.instance.SetAmmoGUI(currentAmmo, maxAmmo);
 	}

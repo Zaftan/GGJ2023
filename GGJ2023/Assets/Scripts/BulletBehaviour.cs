@@ -35,7 +35,7 @@ public class BulletBehaviour : MonoBehaviour
 		}
 		if (tag == "Enemy")
 		{
-			//Remove Health from enemy
+			collision.gameObject.GetComponent<EnemyBehaviourScript>().TakeDamage();
 		}
 		Destroy(gameObject);
 	}
