@@ -36,6 +36,7 @@ public class PlayerAttackScript : MonoBehaviour
 			b.GetComponent<BulletBehaviour>().SetDirection(dir);
 			currentAmmo--;
 			UpdateAmmoGUI();
+			AudioManager.instance.PlayOneShot("Shoot");
 		}
 		else if(currentAmmo <= 0 && reload == false)
 		{

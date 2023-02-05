@@ -17,6 +17,9 @@ public class PlayerScript : MonoBehaviour
 	{
 		healthManager = GetComponent<HealthManager>();
 		collision = GetComponent<BoxCollider2D>();
+
+		MusicManager.instance.SwitchTrack("Main");
+		AudioManager.instance.PlayOneShot("Spawn");
 	}
 
 	public void Update()
@@ -68,13 +71,13 @@ public class PlayerScript : MonoBehaviour
 			Destroy(collision.gameObject);
 			//Add Sound
 			UIManager.instance.AddMana();
-			AudioManager.instance.Play("PickupMana");
+			AudioManager.instance.PlayOneShot("PickupMana");
         }
 		if(collision.gameObject.tag == "LifeOrb")
         {
 			Destroy(collision.gameObject);
 			hasOrb = true;
-			AudioManager.instance.Play("PickupOrb");
+			AudioManager.instance.PlayOneShot("PickupOrb");
 		}
     }
 }
