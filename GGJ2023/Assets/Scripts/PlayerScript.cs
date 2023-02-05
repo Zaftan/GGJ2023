@@ -10,6 +10,8 @@ public class PlayerScript : MonoBehaviour
 	BoxCollider2D collision;
 	[SerializeField] LayerMask layerMask;
 	[SerializeField] GameObject UIMouse;
+	SceneSwitcher sceneSwitcher;
+	bool win = false;
 
 	public bool hasOrb = false;
 
@@ -17,11 +19,23 @@ public class PlayerScript : MonoBehaviour
 	{
 		healthManager = GetComponent<HealthManager>();
 		collision = GetComponent<BoxCollider2D>();
+		sceneSwitcher = GetComponent<SceneSwitcher>();
 	}
 
 	public void Update()
 	{
 		CheckFog();
+		if(healthManager.health <= 0)
+		{
+			if(win)
+			{
+				sceneSwitcher.SwitchScene("GameOver");
+			}
+			else
+			{
+				sceneSwitcher.SwitchScene("GameWin");
+			}
+		}
 	}
 
 	void CheckFog()
