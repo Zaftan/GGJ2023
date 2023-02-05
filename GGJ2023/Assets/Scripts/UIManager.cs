@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
 	[SerializeField] TMP_Text ammo;
 	[SerializeField] TMP_Text kills;
 
+	[SerializeField] GameObject endGame;
+
 	int killCount = 0;
 	int Mana = 0;
 
@@ -32,12 +34,13 @@ public class UIManager : MonoBehaviour
 
 	public void SetAmmoGUI(int cur, int max)
     {
-		ammo.text = cur + "/" + max;
+		ammo.text = "Ammo: " + cur + "/" + max;
     }
 
 	public void SetKillGUI()
 	{
 		killCount++;
+		//endGame.SetKills();
 		kills.text = killCount.ToString();
 	}
 

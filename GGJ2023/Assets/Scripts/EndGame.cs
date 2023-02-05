@@ -9,7 +9,25 @@ public class EndGame : MonoBehaviour
     bool win = false;
     int kills = 0;
 
-    void TriggerGameEnd()
+	public static EndGame instance
+	{
+		get;
+		private set;
+	}
+
+	private void Awake()
+	{
+		if (instance != null && instance != this)
+		{
+			Destroy(gameObject);
+		}
+		else
+		{
+			instance = this;
+		}
+	}
+
+	public void TriggerGameEnd()
     {
         SetText();
     }
@@ -26,12 +44,12 @@ public class EndGame : MonoBehaviour
 		}
     }
 
-	void YouWin()
+	public void YouWin()
 	{
 		win = true;
 	}
 
-    void SetKills()
+    public void SetKills()
     {
         kills++;
     }
