@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
 	[SerializeField] TMP_Text ammo;
+	[SerializeField] TMP_Text kills;
+
+	int killCount = 0;
 
 	public static UIManager instance
 	{
@@ -30,4 +33,10 @@ public class UIManager : MonoBehaviour
     {
 		ammo.text = cur + "/" + max;
     }
+
+	public void SetKillGUI()
+	{
+		killCount++;
+		kills.text = killCount.ToString();
+	}
 }
