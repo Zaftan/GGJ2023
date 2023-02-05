@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5766403275185702599}
   - component: {fileID: 6056914445519181536}
   - component: {fileID: 6985982336415828510}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: John
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df111b82d8a88bb48a8bdae461287eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 5766403275185702598}
+  manaOrb: {fileID: 5049474034651169396, guid: 2872cbe5fb4b99942a396f3f492203f4, type: 3}
 --- !u!61 &6985982336415828510
 BoxCollider2D:
   m_ObjectHideFlags: 0
