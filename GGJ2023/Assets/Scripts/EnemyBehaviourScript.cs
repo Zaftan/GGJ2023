@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyBehaviourScript : MonoBehaviour
 {
-	[SerializeField] GameObject enemy;
+	[SerializeField] GameObject manaOrb;
     GameObject player;
     float speed = 2f;
 	int health = 2;
@@ -42,7 +42,8 @@ public class EnemyBehaviourScript : MonoBehaviour
 		}
 		else
 		{
-			Destroy(enemy);
+			Instantiate(manaOrb, transform.position, Quaternion.identity);
+			Destroy(gameObject);
 			UIManager.instance.SetKillGUI();
 		}
 	}

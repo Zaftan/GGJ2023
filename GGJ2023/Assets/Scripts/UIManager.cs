@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 	[SerializeField] TMP_Text kills;
 
 	int killCount = 0;
+	int Mana = 0;
 
 	public static UIManager instance
 	{
@@ -39,4 +40,19 @@ public class UIManager : MonoBehaviour
 		killCount++;
 		kills.text = killCount.ToString();
 	}
+
+	public void AddMana()
+    {
+		Mana++;
+    }
+
+	public int GetMana()
+    {
+		return Mana;
+    }
+
+	public void RemoveMana(int cost)
+    {
+		Mana -= cost;
+    }
 }
