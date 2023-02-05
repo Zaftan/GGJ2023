@@ -1,17 +1,19 @@
 using DevKit;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
 	int invincibilityFrames = 3;
 	HealthManager healthManager;
+	[SerializeField] SliderHealthBar manaBar;
 	BoxCollider2D collision;
 	[SerializeField] LayerMask layerMask;
 	[SerializeField] GameObject UIMouse;
-	SceneSwitcher sceneSwitcher;
-	bool win = false;
+	[SerializeField] TextMeshProUGUI mana;
 
 	public bool hasOrb = false;
 
@@ -19,7 +21,6 @@ public class PlayerScript : MonoBehaviour
 	{
 		healthManager = GetComponent<HealthManager>();
 		collision = GetComponent<BoxCollider2D>();
-		sceneSwitcher = GetComponent<SceneSwitcher>();
 
 		MusicManager.instance.SwitchTrack("Main");
 		AudioManager.instance.PlayOneShot("Spawn");
@@ -30,14 +31,7 @@ public class PlayerScript : MonoBehaviour
 		CheckFog();
 		if(healthManager.health <= 0)
 		{
-			if(win)
-			{
-				sceneSwitcher.SwitchScene("GameOver");
-			}
-			else
-			{
-				sceneSwitcher.SwitchScene("GameWin");
-			}
+			SceneManager.LoadScene("GameOver");
 		}
 	}
 
@@ -85,6 +79,7 @@ public class PlayerScript : MonoBehaviour
 			Destroy(collision.gameObject);
 			//Add Sound
 			UIManager.instance.AddMana();
+			mana.text = UIManager.instance.GetMana().ToString();
 			AudioManager.instance.PlayOneShot("PickupMana");
         }
 		if(collision.gameObject.tag == "LifeOrb")
